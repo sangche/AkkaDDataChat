@@ -23,7 +23,7 @@ class ChatActor(out: ActorRef) extends Actor with ActorLogging {
       val data = c.get(DataKey)
       out ! data.value
 
-    case text: String =>
+    case text: String if text != "" =>
       replicator ! Update(DataKey, LWWRegister[String](null), WriteLocal) {
         reg => reg.withValue(text)
       }

@@ -8,16 +8,17 @@ angular.module("ChatApp", []).controller("ChatController", function($scope){
   chat.currentMessage = "";
   chat.username = "";
 
-  // what happens when user enters message
+  // user enters message
   chat.sendMessage = function() {
     var text = chat.username + ": " + chat.currentMessage;
     chat.currentMessage = "";
     ws.send(text);
   };
 
-  // what to do when we receive message from the webserver
+  // receive message from the webserver
   ws.onmessage = function(msg) {
     chat.messages.push(msg.data);
     $scope.$digest();
   };
+
 });
